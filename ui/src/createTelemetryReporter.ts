@@ -9,8 +9,7 @@ import * as process from 'process';
 import * as vscode from 'vscode';
 import TelemetryReporter from 'vscode-extension-telemetry';
 import { ITelemetryReporter } from '../index';
-import { extInitialized } from './extensionVariables';
-import { getPackageInfo } from './getPackageInfo';
+import { ext, extInitialized } from './extensionVariables';
 
 // tslint:disable-next-line:strict-boolean-expressions
 const debugTelemetryEnabled: boolean = !/^(false|0)?$/i.test(process.env.DEBUGTELEMETRY || '');
@@ -32,11 +31,10 @@ class DebugReporter implements ITelemetryReporter {
         }
     }
 }
-
 export function createTelemetryReporter(ctx: vscode.ExtensionContext): ITelemetryReporter {
-    assert(extInitialized, 'registerUIExtensionVariables must be called first');
+    assert(extInitialized, 'registerUIExtensionVariables must be called first'); // asdf why this?
 
-    const { extensionName, extensionVersion, aiKey } = getPackageInfo(ctx);
+    const { name: extensionName, version: extensionVersion, aiKey } = ext.packageInfo;
 
     if (debugTelemetryEnabled || !aiKey) {
         console.warn(aiKey ? `${extensionName}: DEBUGTELEMETRY mode enabled - not sending telemetry` : 'Unable to obtain package info, cannot send telemetry');

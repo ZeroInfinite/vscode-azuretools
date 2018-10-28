@@ -9,6 +9,7 @@ import { StorageAccount } from 'azure-arm-storage/lib/models';
 import { ServiceClientCredentials } from 'ms-rest';
 import { AzureEnvironment, AzureServiceClientOptions } from 'ms-rest-azure';
 import { Disposable, Event, ExtensionContext, InputBoxOptions, Memento, MessageItem, MessageOptions, OpenDialogOptions, OutputChannel, QuickPickItem, QuickPickOptions, TextDocument, TreeDataProvider, TreeItem, Uri, EventEmitter } from 'vscode';
+import { IPackageInfo } from '.';
 
 export type OpenInPortalOptions = {
     /**
@@ -72,9 +73,9 @@ export declare class AzureTreeDataProvider<TRoot = ISubscriptionRoot> implements
     /**
      * Optional method to return the parent of `element`.
      * Return `null` or `undefined` if `element` is a child of root.
-     * 
+     *
      * **NOTE:** This method should be implemented in order to access [reveal](#TreeView.reveal) API.
-     * 
+     *
      * @param element The element for which the parent has to be returned.
      * @return Parent of `element`.
      */
@@ -796,7 +797,9 @@ export declare function registerUIExtensionVariables(extVars: UIExtensionVariabl
  * Interface for common extension variables used throughout the UI package.
  */
 export interface UIExtensionVariables {
+    // asdf what's required?
     context: ExtensionContext;
+    packageInfo: IPackageInfo;
     outputChannel: OutputChannel;
     ui: IAzureUserInput;
     reporter: ITelemetryReporter | undefined;
@@ -835,3 +838,10 @@ export function createAzureClient<T extends IAddUserAgent>(
 export function createAzureSubscriptionClient<T extends IAddUserAgent>(
     clientInfo: { credentials: ServiceClientCredentials; environment: AzureEnvironment; },
     clientType: { new(credentials: ServiceClientCredentials, baseUri?: string, options?: AzureServiceClientOptions): T }): T;
+
+
+export interface IPackageInfo {
+    version: string;
+    name: string;
+    aiKey?: string;
+}

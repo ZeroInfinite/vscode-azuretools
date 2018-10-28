@@ -5,6 +5,7 @@
 
 import { ExtensionContext, OutputChannel } from "vscode";
 import TelemetryReporter from "vscode-extension-telemetry";
+import { IPackageInfo } from "../";
 import { IAzureUserInput, UIExtensionVariables } from "../index";
 import { localize } from "./localize";
 
@@ -26,6 +27,10 @@ class UninitializedExtensionVariables implements UIExtensionVariables {
     public get reporter(): TelemetryReporter {
         throw this._error;
     }
+
+    public get packageInfo(): IPackageInfo {
+        throw this._error;
+    }
 }
 
 /**
@@ -36,5 +41,6 @@ export let extInitialized: boolean = false;
 
 export function registerUIExtensionVariables(extVars: UIExtensionVariables): void {
     ext = extVars;
+
     extInitialized = true;
 }
