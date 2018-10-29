@@ -1,0 +1,22 @@
+{
+    "name": "uitestextension",
+    "displayName": "UITestExtension",
+    "description": "Just used for unit tests in this package.",
+    "version": "0.0.1",
+    "publisher": "ms-azuretools",
+    "engines": {
+        "vscode": "^1.23.0"
+    },
+    "activationEvents": [
+        "onCommand:testUIExtension.sayHello"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "testUIExtension.sayHello",
+                "title": "Hello World"
+            }
+        ]
+    }
+}
